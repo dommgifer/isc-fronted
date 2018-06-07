@@ -1,10 +1,12 @@
-FROM python:2.7
+FROM python:2.7-alpine
 MAINTAINER jeffxie@iii.org.tw
 WORKDIR /home/localadmin/backend/openstack_mitaka/
 
 COPY backend/openstack_mitaka/backend_api/ backend_api/ 
 
-RUN pip install Flask && \
+RUN apk add --update gcc libc-dev && \
+    rm -rf /var/cache/apk/* && \
+    pip install Flask && \
     pip install SQLAlchemy && \
     pip install pyyaml && \
     pip install pyghmi==1.0.30 && \
